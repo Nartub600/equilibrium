@@ -270,7 +270,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Agregar categoría
+            Editar categoría <strong>{{ $category->name }}</strong>
             {{-- <small>Optional description</small> --}}
           </h1>
           {{-- <ol class="breadcrumb">
@@ -283,30 +283,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <section class="content">
 
           <!-- Your Page Content Here -->
-          <form role="form" action="{{ url('category/update', $category->id) }}" method="post">
-            <input type="hidden" name="_method" value="put" />
+          <form class="form-horizontal" role="form" action="{{ url('category/store') }}" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
             <div class="box-body">
               <div class="form-group">
-                <label for="name">Nombre</label>
-                <input type="text" class="form-control" name="name" placeholder="Nombre" value="{{ $category->name }}">
+                <label for="name" class="col-sm-2 control-label">Nombre</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="name" placeholder="Nombre" value="{{ $category->name }}">
+                </div>
               </div>
               <div class="form-group">
-                <label for="parent">Padre</label>
-                <select class="form-control" name="parent">
-                  <option value="0">---</option>
-                  {!! $html !!}
-                </select>
+                <label for="parent" class="col-sm-2 control-label">Padre</label>
+                <div class="col-sm-10">
+                  <select class="form-control" name="parent">
+                    <option value="0">---</option>
+                    {!! $html !!}
+                  </select>
+                </div>
               </div>
               <div class="form-group">
-                <label for="order">Orden</label>
-                <input type="text" class="form-control" name="order" placeholder="Orden" value="{{ $category->order }}">
+                <label for="order" class="col-sm-2 control-label">Orden</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="order" placeholder="Orden" value="{{ $category->order }}">
+                </div>
               </div>
             </div><!-- /.box-body -->
 
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Guardar</button>
+              <button type="submit" class="btn btn-primary pull-right">Guardar</button>
             </div>
           </form>
         </section><!-- /.content -->

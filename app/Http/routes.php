@@ -84,20 +84,14 @@ $app->group([
 $app->group([
 
     'namespace' => 'App\Http\Controllers',
-    'prefix'    => 'api'
+    'prefix' => 'api/v1'
 
 ], function ($app) {
 
-    $app->get('products', ['uses' => 'ApiController@products']);
+    $app->get('category/index', ['uses' => 'ApiV1Controller@categoryIndex']);
+    $app->get('category/parents', ['uses' => 'ApiV1Controller@categoryParents']);
+    $app->get('category/{id}', ['uses' => 'ApiV1Controller@category']);
 
-});
-
-$app->group([
-    'prefix' => 'admin'
-], function ($app) {
-
-    $app->get('/', function () {
-        return view('adminlte.admin_template');
-    });
+    $app->get('product', ['uses' => 'ApiV1Controller@product']);
 
 });
