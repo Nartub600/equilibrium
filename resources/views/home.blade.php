@@ -246,13 +246,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <ul class="sidebar-menu">
             <li class="header">MENÚ</li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="#"><i class="fa fa-link"></i> <span>Categorías</span></a>
+            <li class="treeview"><a href="#"><i class="fa fa-link"></i> <span>Categorías</span></a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('category/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('category/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
               </ul>
             </li>
-            <li class="active treeview"><a href="#"><i class="fa fa-link"></i> <span>Productos</span></a>
+            <li class="treeview"><a href="#"><i class="fa fa-link"></i> <span>Productos</span></a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('product/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('product/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
