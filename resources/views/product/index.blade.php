@@ -71,11 +71,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
           </a>
-          {{-- <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
+              {{-- <li class="dropdown messages-menu">
                 <!-- Menu toggle button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-envelope-o"></i>
@@ -105,10 +104,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </li>
                   <li class="footer"><a href="#">See All Messages</a></li>
                 </ul>
-              </li><!-- /.messages-menu -->
+              </li><!-- /.messages-menu --> --}}
 
               <!-- Notifications Menu -->
-              <li class="dropdown notifications-menu">
+              {{-- <li class="dropdown notifications-menu">
                 <!-- Menu toggle button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bell-o"></i>
@@ -128,9 +127,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </li>
                   <li class="footer"><a href="#">View all</a></li>
                 </ul>
-              </li>
+              </li> --}}
               <!-- Tasks Menu -->
-              <li class="dropdown tasks-menu">
+              {{-- <li class="dropdown tasks-menu">
                 <!-- Menu Toggle Button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-flag-o"></i>
@@ -163,27 +162,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a href="#">View all tasks</a>
                   </li>
                 </ul>
-              </li>
+              </li> --}}
               <!-- User Account Menu -->
               <li class="dropdown user user-menu">
                 <!-- Menu Toggle Button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <!-- The user image in the navbar-->
-                  <img src="adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                  {{-- <img src="adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> --}}
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class="hidden-xs">Alexander Pierce</span>
+                  <span class="hidden-xs">Usuario: <strong>{{ session('user')->username }}</strong></span>
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" style="width: auto; min-width: auto;">
                   <!-- The user image in the menu -->
-                  <li class="user-header">
+                  {{-- <li class="user-header">
                     <img src="adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                     <p>
                       Alexander Pierce - Web Developer
                       <small>Member since Nov. 2012</small>
                     </p>
-                  </li>
+                  </li> --}}
                   <!-- Menu Body -->
-                  <li class="user-body">
+                  {{-- <li class="user-body">
                     <div class="col-xs-4 text-center">
                       <a href="#">Followers</a>
                     </div>
@@ -193,24 +192,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-xs-4 text-center">
                       <a href="#">Friends</a>
                     </div>
-                  </li>
+                  </li> --}}
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    <div class="pull-left">
+                    {{-- <div class="pull-left">
                       <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
+                    </div> --}}
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                      <a href="#" class="btn btn-default btn-flat">Salir</a>
                     </div>
                   </li>
                 </ul>
               </li>
               <!-- Control Sidebar Toggle Button -->
-              <li>
+              {{-- <li>
                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-              </li>
+              </li> --}}
             </ul>
-          </div> --}}
+          </div>
         </nav>
       </header>
       <!-- Left side column. contains the logo and sidebar -->
@@ -246,7 +245,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <ul class="sidebar-menu">
             <li class="header">MENÚ</li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="#"><i class="fa fa-link"></i> <span>Categorías</span></a>
+            @if (session('user')->group == 1)
+            <li class="treeview"><a href="#"><i class="fa fa-link"></i> <span>Usuarios</span></a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url('user/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
+                <li><a href="{{ url('user/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
+              </ul>
+            </li>
+            @endif
+            <li class="treeview"><a href="#"><i class="fa fa-link"></i> <span>Categorías</span></a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('category/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('category/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
@@ -288,8 +295,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="box-body">
               <table class="table table-bordered">
                 <tr>
-                  <th>Categoría</th>
                   <th>Producto</th>
+                  <th>Foto</th>
+                  <th>Categoría/s</th>
                   <th>Código de barras</th>
                   <th>Marca</th>
                   <th>Fuente</th>
@@ -297,8 +305,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tr>
                 @foreach ($products as $product)
                 <tr>
-                  <td>{{ $product->category->name }}</td>
                   <td>{{ $product->nombre }}</td>
+                  <td><img width="200" src="{{ 'data:image/jpeg;base64,' . base64_encode(Storage::get('products/' . $product->id . '.jpg')) }}" /></td>
+                  <td>
+                    @foreach ($product->categories()->get() as $category)
+                    {{ $category->name }}<br>
+                    @endforeach
+                  </td>
                   <td>{{ $product->barcode }}</td>
                   <td>{{ $product->marca }}</td>
                   <td>{{ $product->fuente }}</td>

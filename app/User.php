@@ -10,4 +10,9 @@ class User extends Model {
 
     protected $fillable = ['username', 'password', 'group'];
 
+    public function products()
+    {
+        return $this->hasMany('App\Product', 'user_id');
+    }
+
 }

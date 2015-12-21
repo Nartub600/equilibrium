@@ -16,6 +16,8 @@ use App\Category;
 
 $app->get('aux', function() {
 
+
+
 });
 
 $app->get('/', function() {
@@ -42,6 +44,24 @@ $app->group([
     $app->get('login', ['uses' => 'UserController@getLogin']);
     $app->post('login', ['uses' => 'UserController@postLogin']);
     $app->get('logout', ['uses' => 'UserController@logout']);
+
+});
+
+$app->group([
+
+    'namespace'  => 'App\Http\Controllers',
+    'middleware' => 'auth',
+    'prefix'     => 'user'
+
+], function ($app) {
+
+    $app->get('index', ['uses' => 'UserController@index']);
+    $app->get('create', ['uses' => 'UserController@create']);
+    $app->post('store', ['uses' => 'UserController@store']);
+    $app->get('show/{id}', ['uses' => 'UserController@show']);
+    $app->get('edit/{id}', ['uses' => 'UserController@edit']);
+    $app->put('update/{id}', ['uses' => 'UserController@update']);
+    $app->delete('destroy/{id}', ['uses' => 'UserController@destroy']);
 
 });
 

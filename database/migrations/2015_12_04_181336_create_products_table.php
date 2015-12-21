@@ -59,6 +59,7 @@ class CreateProductsTable extends Migration
             $table->decimal('vit_d', 8, 3);
             $table->decimal('b1', 8, 3);
             $table->decimal('b2', 8, 3);
+            $table->decimal('niacina', 8, 3);
             $table->decimal('b6', 8, 3);
             $table->decimal('b9', 8, 3);
             $table->decimal('b12', 8, 3);
@@ -66,14 +67,15 @@ class CreateProductsTable extends Migration
             $table->decimal('indice_glucemico', 8, 3);
             $table->decimal('alcohol', 8, 3);
             $table->decimal('calorias_alcohol', 8, 3);
-            $table->string('descripcion');
-            $table->string('ingredientes');
+            $table->text('descripcion');
+            $table->text('ingredientes');
             $table->string('nombre_cientifico');
             $table->string('tags');
             $table->string('otros_nombres');
             $table->string('rnpa');
             $table->string('rne');
             $table->string('equivalencia');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }

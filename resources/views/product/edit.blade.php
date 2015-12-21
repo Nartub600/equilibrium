@@ -71,11 +71,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
           </a>
-          {{-- <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
+              {{-- <li class="dropdown messages-menu">
                 <!-- Menu toggle button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-envelope-o"></i>
@@ -105,10 +104,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </li>
                   <li class="footer"><a href="#">See All Messages</a></li>
                 </ul>
-              </li><!-- /.messages-menu -->
+              </li><!-- /.messages-menu --> --}}
 
               <!-- Notifications Menu -->
-              <li class="dropdown notifications-menu">
+              {{-- <li class="dropdown notifications-menu">
                 <!-- Menu toggle button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bell-o"></i>
@@ -128,9 +127,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </li>
                   <li class="footer"><a href="#">View all</a></li>
                 </ul>
-              </li>
+              </li> --}}
               <!-- Tasks Menu -->
-              <li class="dropdown tasks-menu">
+              {{-- <li class="dropdown tasks-menu">
                 <!-- Menu Toggle Button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-flag-o"></i>
@@ -163,27 +162,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a href="#">View all tasks</a>
                   </li>
                 </ul>
-              </li>
+              </li> --}}
               <!-- User Account Menu -->
               <li class="dropdown user user-menu">
                 <!-- Menu Toggle Button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <!-- The user image in the navbar-->
-                  <img src="adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                  {{-- <img src="adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> --}}
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class="hidden-xs">Alexander Pierce</span>
+                  <span class="hidden-xs">Usuario: <strong>{{ session('user')->username }}</strong></span>
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" style="width: auto; min-width: auto;">
                   <!-- The user image in the menu -->
-                  <li class="user-header">
+                  {{-- <li class="user-header">
                     <img src="adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                     <p>
                       Alexander Pierce - Web Developer
                       <small>Member since Nov. 2012</small>
                     </p>
-                  </li>
+                  </li> --}}
                   <!-- Menu Body -->
-                  <li class="user-body">
+                  {{-- <li class="user-body">
                     <div class="col-xs-4 text-center">
                       <a href="#">Followers</a>
                     </div>
@@ -193,24 +192,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-xs-4 text-center">
                       <a href="#">Friends</a>
                     </div>
-                  </li>
+                  </li> --}}
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    <div class="pull-left">
+                    {{-- <div class="pull-left">
                       <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
+                    </div> --}}
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                      <a href="#" class="btn btn-default btn-flat">Salir</a>
                     </div>
                   </li>
                 </ul>
               </li>
               <!-- Control Sidebar Toggle Button -->
-              <li>
+              {{-- <li>
                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-              </li>
+              </li> --}}
             </ul>
-          </div> --}}
+          </div>
         </nav>
       </header>
       <!-- Left side column. contains the logo and sidebar -->
@@ -246,13 +245,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <ul class="sidebar-menu">
             <li class="header">MENÚ</li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="#"><i class="fa fa-link"></i> <span>Categorías</span></a>
+            @if (session('user')->group == 1)
+            <li class="treeview"><a href="#"><i class="fa fa-link"></i> <span>Usuarios</span></a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url('user/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
+                <li><a href="{{ url('user/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
+              </ul>
+            </li>
+            @endif
+            <li class="treeview"><a href="#"><i class="fa fa-link"></i> <span>Categorías</span></a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('category/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('category/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
               </ul>
             </li>
-            <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Productos</span></a>
+            <li class="active treeview"><a href="#"><i class="fa fa-link"></i> <span>Productos</span></a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('product/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('product/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
@@ -294,10 +301,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <div class="box-body">
               <div class="form-group">
-                <label for="parent" class="col-sm-2 control-label">Categoría</label>
+                <label for="parent" class="col-sm-2 control-label">Categoría<p class="help-block">Ctrl o ⌘ para selección múltiple</p></label>
                 <div class="col-sm-10">
-                  <select class="form-control" name="category_id">
-                    <option value="0">---</option>
+                  <select multiple class="form-control" name="categories[]">
+                    {{-- <option value="0">---</option> --}}
                     {!! $html !!}
                   </select>
                 </div>
@@ -326,6 +333,337 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <input type="text" class="form-control" name="fuente" placeholder="Fuente" value="{{ $product->fuente }}">
                 </div>
               </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Denominación legal</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="denominacion_legal" placeholder="Denominación legal" value="{{ $product->denominacion_legal }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Alimento</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="alimento" placeholder="Alimento" value="{{ $product->alimento }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Gramos</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="gramos" placeholder="Gramos" value="{{ $product->gramos }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Calorías</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="calorias" placeholder="Calorías" value="{{ $product->calorias }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Calorias %</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="calorias_porcentaje" placeholder="Calorias %" value="{{ $product->calorias_porcentaje }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Hidratos</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="hidratos" placeholder="Hidratos" value="{{ $product->hidratos }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Azúcares</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="azucares" placeholder="Azúcares" value="{{ $product->azucares }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Sacarosa</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="sacarosa" placeholder="Sacarosa" value="{{ $product->sacarosa }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Polidextro</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="polidextro" placeholder="Polidextro" value="{{ $product->polidextro }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Almidón</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="almidon" placeholder="Almidón" value="{{ $product->almidon }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Polialcoholes</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="polialcoholes" placeholder="Polialcoholes" value="{{ $product->polialcoholes }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Fibra</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="fibra" placeholder="Fibra" value="{{ $product->fibra }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Proteínas</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="proteinas" placeholder="Proteínas" value="{{ $product->proteinas }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Grasas</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="grasas" placeholder="Grasas" value="{{ $product->grasas }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">AGS</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="ags" placeholder="AGS" value="{{ $product->ags }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">AGMI</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="agmi" placeholder="AGMI" value="{{ $product->agmi }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">AGPI</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="agpi" placeholder="AGPI" value="{{ $product->agpi }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Trans</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="trans" placeholder="Trans" value="{{ $product->trans }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Colesterol</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="colesterol" placeholder="Colesterol" value="{{ $product->colesterol }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">EPA</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="epa" placeholder="EPA" value="{{ $product->polialcoholes }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">DHA</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="dha" placeholder="DHA" value="{{ $product->dha }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Omega 3</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="omega_3" placeholder="Omega 3" value="{{ $product->omega_3 }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Omega 6</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="omega_6" placeholder="Omega 6" value="{{ $product->omega_6 }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Omega 9</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="omega_9" placeholder="Omega 9" value="{{ $product->omega_9 }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Sodio</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="sodio" placeholder="Sodio" value="{{ $product->sodio }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Calcio</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="calcio" placeholder="Calcio" value="{{ $product->calcio }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Hierro</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="hierro" placeholder="Hierro" value="{{ $product->hierro }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Fósforo</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="fosforo" placeholder="Fósforo" value="{{ $product->fosforo }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Potasio</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="potasio" placeholder="Potasio" value="{{ $product->potasio }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Magnesio</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="magnesio" placeholder="Magnesio" value="{{ $product->magnesio }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Selenio</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="selenio" placeholder="Selenio" value="{{ $product->selenio }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Zinc</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="zinc" placeholder="Zinc" value="{{ $product->zinc }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Vitamina A MC</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="vit_a_mc" placeholder="Vitamina A MC" value="{{ $product->vit_a_mc }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Vitamina A UI</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="vit_a_ui" placeholder="Vitamina A UI" value="{{ $product->vit_a_ui }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Vitamina E MC</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="vit_e_mc" placeholder="Vitamina E UI" value="{{ $product->vit_e_mc }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Vitamina E UI</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="vit_e_ui" placeholder="Vitamina E UI" value="{{ $product->vit_e_ui }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Vitamina D</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="vit_d" placeholder="Vitamina D" value="{{ $product->vit_d }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">B1</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="b1" placeholder="B1" value="{{ $product->b1 }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">B2</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="b2" placeholder="B2" value="{{ $product->b2 }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Niacina</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="niacina" placeholder="Niacina" value="{{ $product->niacina }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">B6</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="b6" placeholder="B6" value="{{ $product->b6 }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">B9</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="b9" placeholder="B9" value="{{ $product->b9 }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">B12</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="b12" placeholder="B12" value="{{ $product->b12 }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Vitamina C</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="vit_c" placeholder="Vitamina C" value="{{ $product->vit_c }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Índice glucémico</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="indice_glucemico" placeholder="Índice glucémico" value="{{ $product->indice_glucemico }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Alcohol</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="alcohol" placeholder="Alcohol" value="{{ $product->alcohol }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Calorías prov. del alcohol</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="calorias_alcohol" placeholder="Calorías prov. del alcohol" value="{{ $product->calorias_alcohol }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Descripción</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" rows="3" name="descripcion" placeholder="Descripción">{{ $product->descripcion }}</textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Ingredientes</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" rows="3" name="ingredientes" placeholder="Ingredientes">{{ $product->ingredientes }}</textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Nombre científico</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="nombre_cientifico" placeholder="Nombre científico" value="{{ $product->nombre_cientifico }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Tags</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="tags" placeholder="Tags" value="{{ $product->tags }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Otros nombres</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="otros_nombres" placeholder="Otros nombres" value="{{ $product->otros_nombres }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">RNPA</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="rnpa" placeholder="RNPA" value="{{ $product->rnpa }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">RNE</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="rne" placeholder="RNE" value="{{ $product->rne }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Equivalencia</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="equivalencia" placeholder="Equivalencia" value="{{ $product->equivalencia }}">
+                </div>
+              </div>
+
             </div><!-- /.box-body -->
 
             <div class="box-footer">

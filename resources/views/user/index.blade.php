@@ -11,18 +11,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="adminlte/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url('adminlte/bootstrap/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="adminlte/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="{{ url('adminlte/dist/css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
-    <link rel="stylesheet" href="adminlte/dist/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="{{ url('adminlte/dist/css/skins/skin-blue.min.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -71,7 +71,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
           </a>
-          <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
@@ -246,33 +245,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <ul class="sidebar-menu">
             <li class="header">MENÚ</li>
             <!-- Optionally, you can add icons to the links -->
-            @if (session('user')->group == 1)
-            <li class="treeview"><a href="#"><i class="fa fa-link"></i> <span>Usuarios</span></a>
+            <li class="active treeview"><a href="#"><i class="fa fa-link"></i> <span>Usuarios</span></a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('user/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('user/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
               </ul>
             </li>
-            @endif
             <li class="treeview"><a href="#"><i class="fa fa-link"></i> <span>Categorías</span></a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('category/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('category/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
               </ul>
             </li>
-            <li class="treeview"><a href="#"><i class="fa fa-link"></i> <span>Productos</span></a>
+            <li><a href="#"><i class="fa fa-link"></i> <span>Productos</span></a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('product/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('product/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
               </ul>
             </li>
-            {{-- <li class="treeview">
-              <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">
-                <li><a href="#">Link in level 2</a></li>
-                <li><a href="#">Link in level 2</a></li>
-              </ul>
-            </li> --}}
           </ul><!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
@@ -283,7 +273,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Panel de administración
+            Índice de usuarios
             {{-- <small>Optional description</small> --}}
           </h1>
           {{-- <ol class="breadcrumb">
@@ -294,8 +284,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Main content -->
         <section class="content">
-
           <!-- Your Page Content Here -->
+
+          <div class="box">
+            {{-- <div class="box-header with-border">
+              <h3 class="box-title">Bordered Table</h3>
+            </div><!-- /.box-header --> --}}
+            <div class="box-body">
+              <table class="table table-condensed">
+                <tr>
+                  <th>Usuario</th>
+                  {{-- <th>Tipo</th> --}}
+                  <th>Opciones</th>
+                </tr>
+                @foreach ($users as $user)
+                <tr>
+                  <td>{{ $user->username }}</td>
+                  {{-- <td>{{ $user->group == 1 ? 'Super usuario' : ( $user->group == 2 ? 'Usuario' : '' ) }}</td> --}}
+                  <td><a href="{{ url('user/edit', $user->id) }}">Editar</a></td>
+                </tr>
+                @endforeach
+              </table>
+            </div><!-- /.box-body -->
+            {{-- <div class="box-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">&laquo;</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">&raquo;</a></li>
+              </ul>
+            </div> --}}
+          </div><!-- /.box -->
 
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
@@ -377,11 +397,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- REQUIRED JS SCRIPTS -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="adminlte/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="{{ url('adminlte/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
     <!-- Bootstrap 3.3.5 -->
-    <script src="adminlte/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ url('adminlte/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="adminlte/dist/js/app.min.js"></script>
+    <script src="{{ url('adminlte/dist/js/app.min.js') }}"></script>
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the

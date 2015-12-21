@@ -10,15 +10,15 @@ class Product extends Model {
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    public function category()
+    public function user()
     {
-        return $this->belongsTo('App\Category', 'category_id');
+        return $this->belongsTo('App\User', 'user_id');
     }
 
-    // public function categories()
-    // {
-    //     return $this->belongsToMany('App\Category', 'category_product', 'product_id', 'category_id');
-    // }
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category', 'category_product', 'product_id', 'category_id');
+    }
 
     public function tags()
     {
