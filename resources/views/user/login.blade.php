@@ -1,5 +1,6 @@
 <html>
     <head>
+        <meta charset="utf-8">
         <script src="{{ url('js/jquery-2.1.4.min.js') }}"></script>
         <script src="{{ url('js/jquery.form.min.js') }}"></script>
         <script src="{{ url('js/equilibrium.js') }}"></script>
