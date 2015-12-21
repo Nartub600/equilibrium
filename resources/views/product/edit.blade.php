@@ -199,7 +199,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <a href="#" class="btn btn-default btn-flat">Profile</a>
                     </div> --}}
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Salir</a>
+                      <a href="{{ url('user/logout') }}" class="btn btn-default btn-flat">Salir</a>
                     </div>
                   </li>
                 </ul>
