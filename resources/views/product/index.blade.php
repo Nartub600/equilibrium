@@ -315,7 +315,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <td>{{ $product->barcode }}</td>
                   <td>{{ $product->marca }}</td>
                   <td>{{ $product->fuente }}</td>
-                  <td><a href="{{ url('product/edit', $product->id) }}">Editar</a></td>
+                  <td>
+                    <a href="{{ url('product/edit', $product->id) }}">Editar</a> | <a href="#" onclick="if(confirm('Seguro eliminar?')) $(this).siblings('form').submit(); return false;">Eliminar</a>
+                    <form method="post" action="{{ url('product/destroy', $product->id) }}">
+                      <input type="hidden" name="_method" value="delete">
+                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    </form>
+                  </td>
                 </tr>
                 @endforeach
               </table>

@@ -16,14 +16,20 @@ class CategoryController extends Controller
             $string .= '&mdash; ';
         }
 
+        $hasChildren = count($category->children()) > 0 ? true : false;
+        $deleteForm = '<a href="#" onclick="if(confirm(\'Seguro eliminar?\')) $(this).siblings(\'form\').submit(); return false;">Eliminar</a>' . '<form method="post" action="' . url('category/destroy', $category->id) . '"><input type="hidden" name="_method" value="delete"><input type="hidden" name="_token" value="' . csrf_token() . '"></form>';
+
         $html =
         '<tr>' .
         '<td>' . $string . $category->name . '</td>' .
-        '<td>' . '<a href="' . url('category/edit', $category->id) . '">Editar</a>' . '</td>' .
+        '<td>' .
+        '<a href="' . url('category/edit', $category->id) . '">Editar</a>' .
+        ($hasChildren ? '' : ' | ' . $deleteForm) .
+        '</td>' .
         '</tr>';
 
 
-        if(count($category->children()) > 0)
+        if($hasChildren)
         {
             $level++;
             foreach($category->children() as $child)
@@ -174,7 +180,9 @@ class CategoryController extends Controller
     }
 
     public function destroy($id) {
+        Category::destroy($id);
 
+        return redirect('category/index');
     }
 
 }
