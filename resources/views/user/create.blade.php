@@ -312,7 +312,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="col-sm-10">
                   <select class="form-control" name="group">
                     <option value="">---</option>
-                    <option value="1">Super usuario</option>
+                    <option value="1">Súper usuario</option>
                     <option value="2">Usuario</option>
                   </select>
                 </div>

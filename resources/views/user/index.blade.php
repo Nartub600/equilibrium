@@ -294,16 +294,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <table class="table table-condensed">
                 <tr>
                   <th>Usuario</th>
-                  {{-- <th>Tipo</th> --}}
+                  <th>Tipo</th>
                   <th>Opciones</th>
                 </tr>
                 @foreach ($users as $user)
                 <tr>
                   <td>{{ $user->username }}</td>
-                  {{-- <td>{{ $user->group == 1 ? 'Super usuario' : ( $user->group == 2 ? 'Usuario' : '' ) }}</td> --}}
+                  <td>{{ $user->group == 1 ? 'Súper usuario' : ( $user->group == 2 ? 'Usuario' : '' ) }}</td>
                   <td>
                     <a href="{{ url('user/edit', $user->id) }}">Editar</a>
-                    @if ($user->id != 1)
+                    @if ($user->id != 1 && session('user')->group == 1)
                      | <a href="#" onclick="if(confirm('Seguro eliminar?')) $(this).siblings('form').submit(); return false;">Eliminar</a>
                     <form method="post" action="{{ url('user/destroy', $user->id) }}">
                       <input type="hidden" name="_method" value="delete">

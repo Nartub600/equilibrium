@@ -313,7 +313,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="col-sm-10">
                   <select class="form-control" name="group">
                     <option value="">---</option>
-                    <option value="1" {{ $user->group == 1 ? 'selected' : '' }}>Super usuario</option>
+                    <option value="1" {{ $user->group == 1 ? 'selected' : '' }}>Súper usuario</option>
                     <option value="2" {{ $user->group == 2 ? 'selected' : '' }}>Usuario</option>
                   </select>
                 </div>
