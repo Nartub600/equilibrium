@@ -28,12 +28,14 @@ class UserController extends Controller
                 ]);
             } else {
                 return response()->json([
-                    'status' => 'error'
+                    'status'  => 'error',
+                    'message' => 'La contraseña no es correcta'
                 ]);
             }
         } else {
             return response()->json([
-                'status' => 'error'
+                'status'  => 'error',
+                'message' => 'No hay un usuario con ese nombre'
             ]);
         }
     }
