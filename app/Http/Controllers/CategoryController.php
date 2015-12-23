@@ -22,9 +22,9 @@ class CategoryController extends Controller
         $html =
         '<tr>' .
         '<td>' . $string . $category->name . '</td>' .
+        '<td>' . ($category->foto ? '<img width="200" src="' . 'data:image/' . explode('.', $category->foto)[1] . ';base64,' . base64_encode(\Storage::get('categories/' . $category->foto)) . '" />' : '') . '</td>' .
         '<td>' .
-        '<a href="' . url('category/edit', $category->id) . '">Editar</a>' .
-        ($hasChildren ? '' : ' | ' . $deleteForm) .
+        (session('user')->group == 1 ? '<a href="' . url('category/edit', $category->id) . '">Editar</a>' . ($hasChildren ? '' : ' | ' . $deleteForm) : '') .
         '</td>' .
         '</tr>';
 
@@ -115,13 +115,27 @@ class CategoryController extends Controller
 
             $category->save();
 
+            if ($request->hasFile('foto')) {
+                $filename = $category->id . '.' . $request->file('foto')->getClientOriginalExtension();
+
+                \Storage::put(
+                    'categories/' . $filename,
+                    file_get_contents($request->file('foto')->getRealPath())
+                );
+
+                $category->foto = $filename;
+
+                $category->save();
+            }
+
             return response()->json([
                 'status' => 'ok',
                 'url' => url('category/index')
             ]);
         } else {
             return response()->json([
-                'status' => 'error'
+                'status'  => 'error',
+                'message' => $validator->messages()->all()
             ]);
         }
     }
@@ -168,13 +182,27 @@ class CategoryController extends Controller
 
             $category->save();
 
+            if ($request->hasFile('foto')) {
+                $filename = $category->id . '.' . $request->file('foto')->getClientOriginalExtension();
+
+                \Storage::put(
+                    'categories/' . $filename,
+                    file_get_contents($request->file('foto')->getRealPath())
+                );
+
+                $category->foto = $filename;
+
+                $category->save();
+            }
+
             return response()->json([
                 'status' => 'ok',
                 'url' => url('category/index')
             ]);
         } else {
             return response()->json([
-                'status' => 'error'
+                'status'  => 'error',
+                'message' => $validator->messages()->all()
             ]);
         }
     }

@@ -98,6 +98,7 @@ $app->group([
     $app->get('edit/{id}', ['uses' => 'ProductController@edit']);
     $app->put('update/{id}', ['uses' => 'ProductController@update']);
     $app->delete('destroy/{id}', ['uses' => 'ProductController@destroy']);
+    $app->post('duplicate/{id}', ['uses' => 'ProductController@duplicate']);
 
 });
 

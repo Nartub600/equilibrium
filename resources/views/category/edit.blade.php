@@ -313,6 +313,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <input type="text" class="form-control" name="order" placeholder="Orden" value="{{ $category->order }}">
                 </div>
               </div>
+              <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Foto</label>
+                <div class="col-sm-10">
+                  <input type="file" class="form-control" name="foto" placeholder="Foto">
+                </div>
+              </div>
             </div><!-- /.box-body -->
 
             <div class="box-footer">

@@ -68,11 +68,15 @@ class ProductController extends Controller
         $input = $request->all();
 
         $rules = [
-            'nombre' => 'required'
+            'nombre'     => 'required',
+            'foto'       => 'required',
+            'categories' => 'required'
         ];
 
         $messages = [
-            'nombre.required' => 'El nombre del producto es obligatorio'
+            'nombre.required' => 'El nombre del producto es obligatorio',
+            'foto.required' => 'La foto del producto es obligatoria',
+            'categories.required' => 'Se debe elegir al menos una categoría'
         ];
 
         $validator = Validator::make($input, $rules, $messages);
@@ -145,16 +149,18 @@ class ProductController extends Controller
 
             $product->categories()->attach($input['categories']);
 
-            $filename = $product->id . '.' . $request->file('foto')->getClientOriginalExtension();
+            if ($request->hasFile('foto')) {
+                $filename = $product->id . '.' . $request->file('foto')->getClientOriginalExtension();
 
-            \Storage::put(
-                'products/' . $filename,
-                file_get_contents($request->file('foto')->getRealPath())
-            );
+                \Storage::put(
+                    'products/' . $filename,
+                    file_get_contents($request->file('foto')->getRealPath())
+                );
 
-            $product->foto = $filename;
+                $product->foto = $filename;
 
-            $product->save();
+                $product->save();
+            }
 
             return response()->json([
                 'status' => 'ok',
@@ -162,7 +168,8 @@ class ProductController extends Controller
             ]);
         } else {
             return response()->json([
-                'status' => 'error'
+                'status'  => 'error',
+                'message' => $validator->messages()->all()
             ]);
         }
     }
@@ -266,8 +273,20 @@ class ProductController extends Controller
 
             $product->save();
 
-            // $product->categories()->detach();
             $product->categories()->sync($input['categories']);
+
+            if ($request->hasFile('foto')) {
+                $filename = $product->id . '.' . $request->file('foto')->getClientOriginalExtension();
+
+                \Storage::put(
+                    'products/' . $filename,
+                    file_get_contents($request->file('foto')->getRealPath())
+                );
+
+                $product->foto = $filename;
+
+                $product->save();
+            }
 
             return response()->json([
                 'status' => 'ok',
@@ -275,13 +294,31 @@ class ProductController extends Controller
             ]);
         } else {
             return response()->json([
-                'status' => 'error'
+                'status'  => 'error',
+                'message' => $validator->messages()->all()
             ]);
         }
     }
 
     public function destroy($id) {
         Product::destroy($id);
+
+        return redirect('product/index');
+    }
+
+    public function duplicate($id) {
+        $product = Product::find($id);
+
+        $newProduct = $product->replicate();
+
+        $newProduct->save();
+
+        $categories = [];
+        foreach ($product->categories()->get() as $category) {
+            array_push($categories, $category->id);
+        }
+
+        $newProduct->categories()->attach($categories);
 
         return redirect('product/index');
     }

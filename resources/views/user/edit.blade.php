@@ -308,7 +308,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <input type="password" class="form-control" name="password_confirmation" placeholder="Confirmar contraseña">
                 </div>
               </div>
-              {{-- <div class="form-group">
+              <div class="form-group">
                 <label for="parent" class="col-sm-2 control-label">Tipo</label>
                 <div class="col-sm-10">
                   <select class="form-control" name="group">
@@ -317,7 +317,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <option value="2" {{ $user->group == 2 ? 'selected' : '' }}>Usuario</option>
                   </select>
                 </div>
-              </div> --}}
+              </div>
             </div><!-- /.box-body -->
 
             <div class="box-footer">

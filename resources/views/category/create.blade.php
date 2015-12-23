@@ -71,7 +71,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
           </a>
-          {{-- <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
@@ -311,6 +310,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <label for="order" class="col-sm-2 control-label">Orden</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" name="order" placeholder="Orden">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="foto" class="col-sm-2 control-label">Foto</label>
+                <div class="col-sm-10">
+                  <input type="file" class="form-control" name="foto" placeholder="Foto">
                 </div>
               </div>
             </div><!-- /.box-body -->

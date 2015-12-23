@@ -296,7 +296,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <table class="table table-condensed">
                 <tr>
                   <th>Nombre</th>
+                  <th>Foto</th>
+                  @if (session('user')->group == 1)
                   <th>Opciones</th>
+                  @endif
                 </tr>
                 {!! $html !!}
               </table>

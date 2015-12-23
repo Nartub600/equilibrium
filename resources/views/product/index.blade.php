@@ -306,7 +306,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 @foreach ($products as $product)
                 <tr>
                   <td>{{ $product->nombre }}</td>
-                  <td><img width="200" src="{{ 'data:image/jpeg;base64,' . base64_encode(Storage::get('products/' . $product->id . '.jpg')) }}" /></td>
+                  <td><img width="200" src="{{ 'data:image/' . explode('.', $product->foto)[1] . ';base64,' . base64_encode(Storage::get('products/' . $product->foto)) }}" /></td>
                   <td>
                     @foreach ($product->categories()->get() as $category)
                     {{ $category->name }}<br>
@@ -316,7 +316,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <td>{{ $product->marca }}</td>
                   <td>{{ $product->fuente }}</td>
                   <td>
-                    <a href="{{ url('product/edit', $product->id) }}">Editar</a> | <a href="#" onclick="if(confirm('Seguro eliminar?')) $(this).siblings('form').submit(); return false;">Eliminar</a>
+                    <a href="{{ url('product/duplicate', $product->id) }}" onclick="$(this).next('form').submit(); return false;">Duplicar</a>
+                    <form method="post" action="{{ url('product/duplicate', $product->id) }}">
+                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    </form>
+                     |
+                    <a href="{{ url('product/edit', $product->id) }}">Editar</a> | <a href="#" onclick="if(confirm('Seguro eliminar?')) $(this).next('form').submit(); return false;">Eliminar</a>
                     <form method="post" action="{{ url('product/destroy', $product->id) }}">
                       <input type="hidden" name="_method" value="delete">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">

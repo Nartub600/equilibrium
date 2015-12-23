@@ -81,7 +81,6 @@ class UserController extends Controller
 
             $user->username = $input['username'];
             $user->password = \Hash::make($input['password']);
-            $user->group = 2; // 1: super, 2: normal
 
             $user->save();
 

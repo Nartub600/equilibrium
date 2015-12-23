@@ -10,7 +10,7 @@ $(function(){
                 if (data.status == 'ok') {
                     window.location = data.url;
                 } else {
-                    alert('pifiaste');
+                    alert(data.message);
                 }
             }
         });
