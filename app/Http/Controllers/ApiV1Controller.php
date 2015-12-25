@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Category;
 use App\Product;
+use App\User;
 
 class ApiV1Controller extends BaseController
 {
@@ -51,6 +52,14 @@ class ApiV1Controller extends BaseController
             ]);
         }
 
+    }
+
+    public function user ($id) {
+        $user = User::find($id);
+
+        return response()->json([
+            'user' => $user
+        ]);
     }
 
 }

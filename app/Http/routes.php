@@ -115,4 +115,6 @@ $app->group([
 
     $app->get('product', ['uses' => 'ApiV1Controller@product']);
 
+    $app->get('user/{id}', ['uses' => 'ApiV1Controller@user']);
+
 });
