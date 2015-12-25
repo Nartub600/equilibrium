@@ -22,7 +22,8 @@ class CreateProductsTable extends Migration
             $table->string('fuente');
             $table->string('denominacion_legal');
             $table->string('alimento');
-            $table->decimal('gramos', 8, 3);
+            $table->string('unidad');
+            $table->decimal('cantidad', 8, 3);
             $table->decimal('calorias', 8, 3);
             $table->decimal('calorias_porcentaje', 8, 3);
             $table->decimal('hidratos', 8, 3);
@@ -74,7 +75,6 @@ class CreateProductsTable extends Migration
             $table->string('otros_nombres');
             $table->string('rnpa');
             $table->string('rne');
-            $table->string('equivalencia');
             $table->integer('user_id')->unsigned();
             $table->timestamps();
         });

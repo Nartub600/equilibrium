@@ -6,6 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
+use App\Equivalence;
 
 class ProductController extends Controller
 {
@@ -90,7 +91,8 @@ class ProductController extends Controller
             $product->fuente = $input['fuente'];
             $product->denominacion_legal = $input['denominacion_legal'];
             $product->alimento = $input['alimento'];
-            $product->gramos = $input['gramos'];
+            $product->unidad = $input['unidad'];
+            $product->cantidad = $input['cantidad'];
             $product->calorias = $input['calorias'];
             $product->calorias_porcentaje = $input['calorias_porcentaje'];
             $product->hidratos = $input['hidratos'];
@@ -142,10 +144,19 @@ class ProductController extends Controller
             $product->otros_nombres = $input['otros_nombres'];
             $product->rnpa = $input['rnpa'];
             $product->rne = $input['rne'];
-            $product->equivalencia = $input['equivalencia'];
             $product->user_id = session('user')->id;
 
             $product->save();
+
+            foreach ($input['equivalence']['name'] as $key => $equivalence_name) {
+                if ($equivalence_name) {
+                    Equivalence::create([
+                        'product_id' => $product->id,
+                        'name'       => $equivalence_name,
+                        'amount'     => $input['equivalence']['amount'][$key]
+                    ]);
+                }
+            }
 
             $product->categories()->attach($input['categories']);
 
@@ -217,7 +228,8 @@ class ProductController extends Controller
             $product->fuente = $input['fuente'];
             $product->denominacion_legal = $input['denominacion_legal'];
             $product->alimento = $input['alimento'];
-            $product->gramos = $input['gramos'];
+            $product->unidad = $input['unidad'];
+            $product->cantidad = $input['cantidad'];
             $product->calorias = $input['calorias'];
             $product->calorias_porcentaje = $input['calorias_porcentaje'];
             $product->hidratos = $input['hidratos'];
@@ -269,9 +281,20 @@ class ProductController extends Controller
             $product->otros_nombres = $input['otros_nombres'];
             $product->rnpa = $input['rnpa'];
             $product->rne = $input['rne'];
+
             $product->equivalencia = $input['equivalencia'];
 
             $product->save();
+
+            foreach ($input['equivalence']['name'] as $key => $equivalence_name) {
+                if ($equivalence_name) {
+                    Equivalence::create([
+                        'product_id' => $product->id,
+                        'name'       => $equivalence_name,
+                        'amount'     => $input['equivalence']['amount'][$key]
+                    ]);
+                }
+            }
 
             $product->categories()->sync($input['categories']);
 
@@ -301,6 +324,14 @@ class ProductController extends Controller
     }
 
     public function destroy($id) {
+        $product = Product::find($id);
+
+        $product->categories()->detach();
+
+        foreach ($product->equivalences()->get() as $equivalence) {
+            $equivalence->delete();
+        }
+
         Product::destroy($id);
 
         return redirect('product/index');
@@ -317,6 +348,16 @@ class ProductController extends Controller
         foreach ($product->categories()->get() as $category) {
             array_push($categories, $category->id);
         }
+
+        $equivalences = $product->equivalences()->get();
+
+        foreach ($equivalences as $key => $equivalence) {
+                Equivalence::create([
+                    'product_id' => $newProduct->id,
+                    'name'       => $equivalence->name,
+                    'amount'     => $equivalence->amount
+                ]);
+            }
 
         $newProduct->categories()->attach($categories);
 

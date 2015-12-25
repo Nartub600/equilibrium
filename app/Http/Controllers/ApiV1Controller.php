@@ -38,13 +38,13 @@ class ApiV1Controller extends BaseController
 
     public function product (Request $request) {
         if ($request->has('id')) {
-            $product = Product::find($request['id']);
+            $product = Product::with('equivalences')->find($request['id']);
 
             return response()->json([
                 'product' => $product
             ]);
         } else {
-            $products = Product::where($request->all())->get();
+            $products = Product::with('equivalences')->where($request->all())->get();
 
             return response()->json([
                 'products' => $products

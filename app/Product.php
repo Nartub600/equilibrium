@@ -25,4 +25,9 @@ class Product extends Model {
         return $this->belongsToMany('App\Tag', 'product_tag', 'product_id', 'tag_id');
     }
 
+    public function equivalences()
+    {
+        return $this->hasMany('App\Equivalence', 'product_id');
+    }
+
 }

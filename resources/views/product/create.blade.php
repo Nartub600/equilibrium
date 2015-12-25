@@ -350,9 +350,45 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
               </div>
               <div class="form-group">
-                <label for="fuente" class="col-sm-2 control-label">Gramos</label>
+                <label for="fuente" class="col-sm-2 control-label">Unidad de medida</label>
                 <div class="col-sm-10">
-                  <input type="number" step="0.001" class="form-control" name="gramos" placeholder="Gramos">
+                  <select class="form-control" name="unidad">
+                    <option value="">---</option>
+                    <option value="kg">kg</option>
+                    <option value="g">g</option>
+                    <option value="cm3">cm3</option>
+                    <option value="ml">ml</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Cantidad</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="cantidad" placeholder="Cantidad">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Equivalencias</label>
+                <div>
+                  <div class="col-sm-5">
+                    <input type="text" class="form-control" name="equivalence[name][]" placeholder="Nombre">
+                  </div>
+                  <div class="col-sm-5">
+                    <input type="text" class="form-control" name="equivalence[amount][]" placeholder="Cantidad">
+                  </div>
+                </div>
+                <div style="display: none;">
+                  <div class="equivalence-row">
+                    <div class="col-sm-offset-2 col-sm-5">
+                      <input type="text" class="form-control" name="equivalence[name][]" placeholder="Nombre">
+                    </div>
+                    <div class="col-sm-5">
+                      <input type="text" class="form-control" name="equivalence[amount][]" placeholder="Cantidad">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-offset-2 col-sm-10 agregar-equivalencia">
+                  <p class="help-block"><a href="#" onclick="$('.equivalence-row').first().clone().insertBefore('.agregar-equivalencia'); return false;">Agregar equivalencia</a></p>
                 </div>
               </div>
               <div class="form-group">
@@ -659,12 +695,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <label for="name" class="col-sm-2 control-label">RNE</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" name="rne" placeholder="RNE">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="name" class="col-sm-2 control-label">Equivalencia</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" name="equivalencia" placeholder="Equivalencia">
                 </div>
               </div>
 

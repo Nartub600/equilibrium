@@ -346,9 +346,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
               </div>
               <div class="form-group">
-                <label for="fuente" class="col-sm-2 control-label">Gramos</label>
+                <label for="fuente" class="col-sm-2 control-label">Unidad</label>
                 <div class="col-sm-10">
-                  <input type="number" step="0.001" class="form-control" name="gramos" placeholder="Gramos" value="{{ $product->gramos }}">
+                  <select class="form-control" name="unidad">
+                    <option value="">---</option>
+                    <option {{ $product->unidad == 'kg' ? 'selected' : '' }} value="kg">kg</option>
+                    <option {{ $product->unidad == 'g' ? 'selected' : '' }} value="g">g</option>
+                    <option {{ $product->unidad == 'cm3' ? 'selected' : '' }} value="cm3">cm3</option>
+                    <option {{ $product->unidad == 'ml' ? 'selected' : '' }} value="ml">ml</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fuente" class="col-sm-2 control-label">Cantidad</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.001" class="form-control" name="cantidad" placeholder="Cantidad" value="{{ $product->cantidad }}">
                 </div>
               </div>
               <div class="form-group">
