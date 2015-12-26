@@ -114,6 +114,7 @@ $app->group([
     $app->get('category/{id}', ['uses' => 'ApiV1Controller@category']);
 
     $app->get('product', ['uses' => 'ApiV1Controller@product']);
+    $app->get('product/{id}', ['uses' => 'ApiV1Controller@productById']);
 
     $app->get('user/{id}', ['uses' => 'ApiV1Controller@user']);
 

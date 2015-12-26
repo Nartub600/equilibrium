@@ -38,20 +38,19 @@ class ApiV1Controller extends BaseController
     }
 
     public function product (Request $request) {
-        if ($request->has('id')) {
-            $product = Product::with('equivalences')->find($request['id']);
+        $products = Product::with('equivalences')->where($request->all())->get();
 
-            return response()->json([
-                'product' => $product
-            ]);
-        } else {
-            $products = Product::with('equivalences')->where($request->all())->get();
+        return response()->json([
+            'products' => $products
+        ]);
+    }
 
-            return response()->json([
-                'products' => $products
-            ]);
-        }
+    public function productById ($id) {
+        $product = Product::with('equivalences')->find($id);
 
+        return response()->json([
+            'product' => $product
+        ]);
     }
 
     public function user ($id) {
