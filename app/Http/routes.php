@@ -113,7 +113,7 @@ $app->group([
     $app->get('category/parents', ['uses' => 'ApiV1Controller@categoryParents']);
     $app->get('category/{id}', ['uses' => 'ApiV1Controller@category']);
 
-    $app->get('product', ['uses' => 'ApiV1Controller@product']);
+    $app->get('products', ['uses' => 'ApiV1Controller@products']);
     $app->get('product/{id}', ['uses' => 'ApiV1Controller@productById']);
 
     $app->get('user/{id}', ['uses' => 'ApiV1Controller@user']);
