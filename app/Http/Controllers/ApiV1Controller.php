@@ -30,7 +30,8 @@ class ApiV1Controller extends BaseController
     }
 
     public function category ($id) {
-        $products = Product::where('category_id', $id)->get();
+        $category = Category::find($id);
+        $products = $category->products()->with('equivalences')->get();
 
         return response()->json([
             'products' => $products
@@ -41,11 +42,11 @@ class ApiV1Controller extends BaseController
         if($request->has('after')) {
             $products = Product::with('equivalences')
                 ->where('updated_at', '>', $request['after'])
-                ->paginate(2);
+                ->paginate(10);
         } else {
             $products = Product::with('equivalences')
                 ->where($request->except('page'))
-                ->paginate(2);
+                ->paginate(10);
         }
 
         return $products;

@@ -1,0 +1,273 @@
+Cómo Equilibrar - API v1
+------------------------
+
+URL: /category/index
+Descripción: Índice de categorías
+Respuesta:
+- categories (array):
+    - id
+    - name
+    - parent
+    - order
+    - foto
+    - created_at
+    - updated_at
+
+URL: /category/parents
+Descripción: Categorías de nivel 0
+Respuesta:
+- parents (array):
+    - id
+    - name
+    - parent
+    - order
+    - foto
+    - created_at
+    - updated_at
+
+URL: /category/{id}
+Descripción: Productos de la categoría {id}
+Respuesta:
+- products (array):
+    - id
+    - nombre
+    - foto
+    - barcode
+    - marca
+    - fuente
+    - denominacion_legal
+    - alimento
+    - unidad
+    - cantidad
+    - calorias
+    - calorias_porcentaje
+    - hidratos
+    - azucares
+    - sacarosa
+    - polidextro
+    - almidon
+    - polialcoholes
+    - fibra
+    - proteinas
+    - grasas
+    - ags
+    - agmi
+    - agpi
+    - trans
+    - colesterol
+    - epa
+    - dha
+    - omega_3
+    - omega_6
+    - omega_9
+    - sodio
+    - calcio
+    - hierro
+    - fosforo
+    - potasio
+    - magnesio
+    - selenio
+    - zinc
+    - vit_a_mc
+    - vit_a_ui
+    - vit_e_mc
+    - vit_e_ui
+    - vit_d
+    - b1
+    - b2
+    - niacina
+    - b6
+    - b9
+    - b12
+    - vit_c
+    - indice_glucemico
+    - alcohol
+    - calorias_alcohol
+    - descripcion
+    - ingredientes
+    - nombre_cientifico
+    - tags
+    - otros_nombres
+    - rnpa
+    - rne
+    - user_id
+    - created_at
+    - updated_at
+    - equivalences (array):
+        - id
+        - product_id
+        - name
+        - amount
+        - created_at
+        - updated_at
+
+URL: /products
+Parámetros: after, page, todos los campos de los productos
+Descripción: Búsqueda de productos
+Respuesta:
+- total
+- per_page
+- current_page
+- last_page
+- next_page_url
+- prev_page_url
+- from
+- to
+- data (array):
+    - id
+    - nombre
+    - foto
+    - barcode
+    - marca
+    - fuente
+    - denominacion_legal
+    - alimento
+    - unidad
+    - cantidad
+    - calorias
+    - calorias_porcentaje
+    - hidratos
+    - azucares
+    - sacarosa
+    - polidextro
+    - almidon
+    - polialcoholes
+    - fibra
+    - proteinas
+    - grasas
+    - ags
+    - agmi
+    - agpi
+    - trans
+    - colesterol
+    - epa
+    - dha
+    - omega_3
+    - omega_6
+    - omega_9
+    - sodio
+    - calcio
+    - hierro
+    - fosforo
+    - potasio
+    - magnesio
+    - selenio
+    - zinc
+    - vit_a_mc
+    - vit_a_ui
+    - vit_e_mc
+    - vit_e_ui
+    - vit_d
+    - b1
+    - b2
+    - niacina
+    - b6
+    - b9
+    - b12
+    - vit_c
+    - indice_glucemico
+    - alcohol
+    - calorias_alcohol
+    - descripcion
+    - ingredientes
+    - nombre_cientifico
+    - tags
+    - otros_nombres
+    - rnpa
+    - rne
+    - user_id
+    - created_at
+    - updated_at
+    - equivalences (array):
+        - id
+        - product_id
+        - name
+        - amount
+        - created_at
+        - updated_at
+
+URL: /product/{id}
+Descripción: Búsqueda de producto por ID
+Respuesta:
+- product:
+    - id,
+    - nombre,
+    - foto,
+    - barcode,
+    - marca,
+    - fuente,
+    - denominacion_legal,
+    - alimento,
+    - unidad,
+    - cantidad,
+    - calorias,
+    - calorias_porcentaje,
+    - hidratos,
+    - azucares,
+    - sacarosa,
+    - polidextro,
+    - almidon,
+    - polialcoholes,
+    - fibra,
+    - proteinas,
+    - grasas,
+    - ags,
+    - agmi,
+    - agpi,
+    - trans,
+    - colesterol,
+    - epa,
+    - dha,
+    - omega_3,
+    - omega_6,
+    - omega_9,
+    - sodio,
+    - calcio,
+    - hierro,
+    - fosforo,
+    - potasio,
+    - magnesio,
+    - selenio,
+    - zinc,
+    - vit_a_mc,
+    - vit_a_ui,
+    - vit_e_mc,
+    - vit_e_ui,
+    - vit_d,
+    - b1,
+    - b2,
+    - niacina,
+    - b6,
+    - b9,
+    - b12,
+    - vit_c,
+    - indice_glucemico,
+    - alcohol,
+    - calorias_alcohol,
+    - descripcion,
+    - ingredientes,
+    - nombre_cientifico,
+    - tags,
+    - otros_nombres,
+    - rnpa,
+    - rne,
+    - user_id,
+    - created_at,
+    - updated_at,
+    - equivalences (array):
+        - id,
+        - product_id,
+        - name,
+        - amount,
+        - created_at,
+        - updated_at
+
+URL: /user/{id}
+Descripción: Búsqueda de usuario por ID
+Respuesta:
+- user:
+    - id
+    - username
+    - group
+    - created_at
+    - updated_at
