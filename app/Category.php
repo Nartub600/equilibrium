@@ -42,4 +42,8 @@ class Category extends Model {
         }
     }
 
+    public function getFotoAttribute($value) {
+        return 'data:image/' . explode('.', $value)[1] . ';base64,' . base64_encode(\Storage::get('categories/' . $value));
+    }
+
 }
