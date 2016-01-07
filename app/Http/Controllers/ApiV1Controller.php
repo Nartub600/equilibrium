@@ -40,20 +40,18 @@ class ApiV1Controller extends BaseController
 
     public function products (Request $request) {
         if($request->has('after')) {
-            $products = Product::with('equivalences')
-                ->where('updated_at', '>', $request['after'])
-                ->paginate(10);
+            $products = Product::where('updated_at', '>', $request['after'])
+                ->paginate();
         } else {
-            $products = Product::with('equivalences')
-                ->where($request->except('page'))
-                ->paginate(10);
+            $products = Product::where($request->except('page'))
+                ->paginate();
         }
 
         return $products;
     }
 
     public function productById ($id) {
-        $product = Product::with('equivalences')->find($id);
+        $product = Product::find($id);
 
         return response()->json([
             'product' => $product
