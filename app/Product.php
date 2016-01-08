@@ -29,7 +29,11 @@ class Product extends Model {
     }
 
     public function getFotoAttribute($value) {
-        return 'data:image/' . explode('.', $value)[1] . ';base64,' . base64_encode(\Storage::get('products/' . $value));
+        if ($value) {
+            return 'data:image/' . explode('.', $value)[1] . ';base64,' . base64_encode(\Storage::get('products/' . $value));
+        } else {
+            return null;
+        }
     }
 
 }
