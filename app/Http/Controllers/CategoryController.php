@@ -22,7 +22,7 @@ class CategoryController extends Controller
         $html =
         '<tr>' .
         '<td>' . $string . $category->name . '</td>' .
-        '<td>' . ($category->foto ? '<img width="200" src="' . 'data:image/' . explode('.', $category->foto)[1] . ';base64,' . base64_encode(\Storage::get('categories/' . $category->foto)) . '" />' : '') . '</td>' .
+        '<td><img width="200" src="' . $category->foto . '" /></td>' .
         '<td>' .
         (session('user')->group == 1 ? '<a href="' . url('category/edit', $category->id) . '">Editar</a>' . ($hasChildren ? '' : ' | ' . $deleteForm) : '') .
         '</td>' .

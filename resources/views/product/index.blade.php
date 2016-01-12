@@ -306,7 +306,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 @foreach ($products as $product)
                 <tr>
                   <td>{{ $product->nombre }}</td>
-                  <td><img width="200" src="{{ 'data:image/' . explode('.', $product->foto)[1] . ';base64,' . base64_encode(Storage::get('products/' . $product->foto)) }}" /></td>
+                  <td><img width="200" src="{{ $product->foto }}" /></td>
                   <td>
                     @foreach ($product->categories()->get() as $category)
                     {{ $category->name }}<br>
