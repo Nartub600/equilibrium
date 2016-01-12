@@ -379,10 +379,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <div style="display: none;">
                   <div class="equivalence-row">
-                    <div class="col-sm-offset-2 col-sm-5">
+                    <div class="col-sm-offset-2 col-sm-5" style="padding-top: 5px;">
                       <input type="text" class="form-control" name="equivalence[name][]" placeholder="Nombre">
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-5" style="padding-top: 5px;">
                       <input type="text" class="form-control" name="equivalence[amount][]" placeholder="Cantidad">
                     </div>
                   </div>

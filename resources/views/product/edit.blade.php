@@ -363,6 +363,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <input type="number" step="0.001" class="form-control" name="cantidad" placeholder="Cantidad" value="{{ $product->cantidad }}">
                 </div>
               </div>
+
+              <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Equivalencias</label>
+                <?php $i = 1; ?>
+                @foreach ($product->equivalences as $equivalence)
+                <div>
+                  <div class="col-sm-5 {{ ($i != 1 ? 'col-sm-offset-2' : '') }}" style="{{ ($i != 1 ? 'padding-top: 5px;' : '') }}">
+                    <input type="text" class="form-control" name="equivalence[name][]" placeholder="Nombre" value="{{ $equivalence->name }}">
+                  </div>
+                  <div class="col-sm-5" style="{{ ($i != 1 ? 'padding-top: 5px;' : '') }}">
+                    <input type="text" class="form-control" name="equivalence[amount][]" placeholder="Cantidad" value="{{ $equivalence->amount }}">
+                  </div>
+                </div>
+                <?php $i++; ?>
+                @endforeach
+                <div style="display: none;">
+                  <div class="equivalence-row">
+                    <div class="col-sm-offset-2 col-sm-5" style="padding-top: 5px;">
+                      <input type="text" class="form-control" name="equivalence[name][]" placeholder="Nombre">
+                    </div>
+                    <div class="col-sm-5" style="padding-top: 5px;">
+                      <input type="text" class="form-control" name="equivalence[amount][]" placeholder="Cantidad">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-offset-2 col-sm-10 agregar-equivalencia">
+                  <p class="help-block"><a href="#" onclick="$('.equivalence-row').first().clone().insertBefore('.agregar-equivalencia'); return false;">Agregar equivalencia</a></p>
+                </div>
+              </div>
+
               <div class="form-group">
                 <label for="fuente" class="col-sm-2 control-label">Calorías</label>
                 <div class="col-sm-10">
@@ -667,12 +697,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <label for="name" class="col-sm-2 control-label">RNE</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" name="rne" placeholder="RNE" value="{{ $product->rne }}">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="name" class="col-sm-2 control-label">Equivalencia</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" name="equivalencia" placeholder="Equivalencia" value="{{ $product->equivalencia }}">
                 </div>
               </div>
 

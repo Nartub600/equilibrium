@@ -222,7 +222,6 @@ class ProductController extends Controller
             $product = Product::find($id);
 
             $product->nombre = $input['nombre'];
-            // $product->foto = $input['foto'];
             $product->barcode = $input['barcode'];
             $product->marca = $input['marca'];
             $product->fuente = $input['fuente'];
@@ -281,8 +280,6 @@ class ProductController extends Controller
             $product->otros_nombres = $input['otros_nombres'];
             $product->rnpa = $input['rnpa'];
             $product->rne = $input['rne'];
-
-            $product->equivalencia = $input['equivalencia'];
 
             $product->save();
 
