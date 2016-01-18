@@ -10,7 +10,7 @@ class Product extends Model {
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    protected $with = ['equivalences', 'user'];
+    protected $with = ['equivalences', 'user', 'categories'];
 
     public function user() {
         return $this->belongsTo('App\User', 'user_id');
