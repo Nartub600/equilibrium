@@ -11,18 +11,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="adminlte/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url('adminlte/bootstrap/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ url('adminlte/plugins/datepicker/datepicker3.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="adminlte/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="{{ url('adminlte/dist/css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
-    <link rel="stylesheet" href="adminlte/dist/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="{{ url('adminlte/dist/css/skins/skin-blue.min.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -71,7 +72,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
           </a>
-          <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
@@ -253,7 +253,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li><a href="{{ url('user/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
               </ul>
             </li>
-            <li class="treeview"><a href="#"><i class="fa fa-link"></i> <span>Tips</span></a>
+            <li class="active treeview"><a href="#"><i class="fa fa-link"></i> <span>Tips</span></a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('tip/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('tip/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
@@ -272,13 +272,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li><a href="{{ url('product/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
               </ul>
             </li>
-            {{-- <li class="treeview">
-              <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">
-                <li><a href="#">Link in level 2</a></li>
-                <li><a href="#">Link in level 2</a></li>
-              </ul>
-            </li> --}}
           </ul><!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
@@ -289,7 +282,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Panel de administración
+            Editar tip <strong>{{ \Illuminate\Support\Str::words($tip->content, 8) }}</strong>
             {{-- <small>Optional description</small> --}}
           </h1>
           {{-- <ol class="breadcrumb">
@@ -302,7 +295,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <section class="content">
 
           <!-- Your Page Content Here -->
+          <form class="form-horizontal" role="form" action="{{ url('tip/update', $tip->id) }}" method="post">
+            <input type="hidden" name="_method" value="put" />
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
+            <div class="box-body">
+              <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Contenido</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" rows="2" name="content" placeholder="Contenido (máx. 255 caracteres)" maxlength="255" style="resize: none;">{{ $tip->content }}</textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="desde" class="col-sm-2 control-label">Desde</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" placeholder="Desde" name="start" id="start" value="{{ $tip->start }}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="hasta" class="col-sm-2 control-label">Hasta</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" placeholder="Hasta" name="end" id="end" value="{{ $tip->end }}">
+                </div>
+              </div>
+            </div><!-- /.box-body -->
+
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary pull-right">Guardar</button>
+            </div>
+          </form>
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
@@ -383,15 +404,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- REQUIRED JS SCRIPTS -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="adminlte/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="{{ url('adminlte/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
     <!-- Bootstrap 3.3.5 -->
-    <script src="adminlte/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ url('adminlte/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url('adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ url('adminlte/plugins/datepicker/locales/bootstrap-datepicker.es.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="adminlte/dist/js/app.min.js"></script>
+    <script src="{{ url('adminlte/dist/js/app.min.js') }}"></script>
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the
          user experience. Slimscroll is required when using the
          fixed layout. -->
+
+    <script src="{{ url('js/jquery.form.min.js') }}"></script>
+    <script src="{{ url('js/equilibrium.js') }}"></script>
+
+    <script>
+      $(function(){
+        $('#start, #end').datepicker({
+          language: 'es',
+          orientation: 'top left',
+          autoclose: true,
+          format: 'dd/mm/yyyy',
+          todayHighlight: true
+        });
+      });
+    </script>
   </body>
 </html>

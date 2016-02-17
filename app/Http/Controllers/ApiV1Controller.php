@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
 use App\User;
+use App\Tip;
+
+use Carbon\Carbon;
 
 class ApiV1Controller extends BaseController
 {
@@ -63,6 +66,15 @@ class ApiV1Controller extends BaseController
 
         return response()->json([
             'user' => $user
+        ]);
+    }
+
+    public function tips () {
+        $now = Carbon::now();
+        $tips = Tip::where('start', '<', $now)->where('end', '>', $now)->get();
+
+        return response()->json([
+            'tips' => $tips
         ]);
     }
 

@@ -104,6 +104,24 @@ $app->group([
 
 $app->group([
 
+    'namespace'  => 'App\Http\Controllers',
+    'middleware' => 'auth',
+    'prefix'     => 'tip'
+
+], function ($app) {
+
+    $app->get('index', ['uses' => 'TipController@index']);
+    $app->get('create', ['uses' => 'TipController@create']);
+    $app->post('store', ['uses' => 'TipController@store']);
+    $app->get('show/{id}', ['uses' => 'TipController@show']);
+    $app->get('edit/{id}', ['uses' => 'TipController@edit']);
+    $app->put('update/{id}', ['uses' => 'TipController@update']);
+    $app->delete('destroy/{id}', ['uses' => 'TipController@destroy']);
+
+});
+
+$app->group([
+
     'namespace' => 'App\Http\Controllers',
     'prefix' => 'api/v1'
 
@@ -117,5 +135,7 @@ $app->group([
     $app->get('product/{id}', ['uses' => 'ApiV1Controller@productById']);
 
     $app->get('user/{id}', ['uses' => 'ApiV1Controller@user']);
+
+    $app->get('tips', ['uses' => 'ApiV1Controller@tips']);
 
 });
