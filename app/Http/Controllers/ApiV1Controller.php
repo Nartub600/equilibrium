@@ -17,7 +17,11 @@ class ApiV1Controller extends BaseController
 {
 
     public function categoryIndex () {
-        $categories = Category::all();
+        if($request->has('after')) {
+            $categories = Category::where('updated_at', '>', $request['after'])->get();
+        } else {
+            $categories = Category::all();
+        }
 
         return response()->json([
             'categories' => $categories
