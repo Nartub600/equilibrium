@@ -252,6 +252,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li><a href="{{ url('user/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
               </ul>
             </li>
+            <li class="treeview"><a href="#"><i class="fa fa-link"></i> <span>Tips</span></a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url('tip/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
+                <li><a href="{{ url('tip/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
+              </ul>
+            </li>
             @endif
             <li class="active treeview"><a href="#"><i class="fa fa-link"></i> <span>Categorías</span></a>
               <ul class="treeview-menu">

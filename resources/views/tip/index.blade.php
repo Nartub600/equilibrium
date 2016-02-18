@@ -315,7 +315,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <form method="post" action="{{ url('tip/destroy', $tip->id) }}">
                       <input type="hidden" name="_method" value="delete">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    </form></td>
+                    </form>
+                  </td>
                 </tr>
                 @endforeach
               </table>
