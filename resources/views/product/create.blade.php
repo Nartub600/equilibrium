@@ -291,10 +291,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             Agregar producto
             {{-- <small>Optional description</small> --}}
           </h1>
-          {{-- <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-            <li class="active">Here</li>
-          </ol> --}}
+          <ol class="breadcrumb">
+            <li><a href="{{ url('product/toggleView') }}"><i class="fa fa-cog"></i> Cambiar vista</a></li>
+            <!-- <li class="active">Here</li> -->
+          </ol>
         </section>
 
         <!-- Main content -->

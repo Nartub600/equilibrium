@@ -60,7 +60,14 @@ class ProductController extends Controller
             $html .= $this->buildOptionTree($father);
         }
 
-        return view('product.create', [
+        if (session('view') == 'landscape') {
+            $view = 'product.create-land';
+        } else {
+            session(['view' => 'portrait']);
+            $view = 'product.create';
+        }
+
+        return view($view, [
             'html' => $html
         ]);
     }
@@ -173,10 +180,18 @@ class ProductController extends Controller
                 $product->save();
             }
 
-            return response()->json([
-                'status' => 'ok',
-                'url' => url('product/index')
-            ]);
+            if ($request->has('last')) {
+                return response()->json([
+                    'status' => 'ok',
+                    'url'    => url('product/index')
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'ok',
+                    'more'   => 'yes'
+                ]);
+            }
+
         } else {
             return response()->json([
                 'status'  => 'error',
@@ -359,6 +374,18 @@ class ProductController extends Controller
         $newProduct->categories()->attach($categories);
 
         return redirect('product/index');
+    }
+
+    public function toggleView() {
+        if (session('view') == 'portrait') {
+            session(['view' => 'landscape']);
+        } else if (session('view' == 'landscape')) {
+            session(['view' => 'portrait']);
+        } else {
+            session(['view' => 'portrait']);
+        }
+
+        return redirect('product/create');
     }
 
 }

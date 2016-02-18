@@ -11,15 +11,6 @@
 |
 */
 
-use App\User;
-use App\Category;
-
-$app->get('aux', function() {
-
-
-
-});
-
 $app->get('/', function() {
     return redirect('home');
 });
@@ -99,6 +90,7 @@ $app->group([
     $app->put('update/{id}', ['uses' => 'ProductController@update']);
     $app->delete('destroy/{id}', ['uses' => 'ProductController@destroy']);
     $app->post('duplicate/{id}', ['uses' => 'ProductController@duplicate']);
+    $app->get('toggleView', ['uses' => 'ProductController@toggleView']);
 
 });
 
