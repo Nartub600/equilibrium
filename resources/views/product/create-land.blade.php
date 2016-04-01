@@ -540,7 +540,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           </form>
 
-          <p><a href="#" onclick="$('form.producto').last().after($('form.producto').first().clone()); return false;">Otro producto</a></p>
+          <p><a href="#" onclick="$('form.producto').last().after($('form.producto').first().clone()); scrollHelper(); return false;">Otro producto</a></p>
 
           <div class="box-footer">
             <button type="submit" class="btn btn-primary pull-right" id="btn_guardar">Guardar</button>
