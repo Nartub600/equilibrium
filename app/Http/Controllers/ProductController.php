@@ -510,13 +510,12 @@ class ProductController extends Controller
                         $product->foto = "";
                     }
                 }
-
-                return response()->json([
-                    'status' => 'ok',
-                    'url'    => url('product/index')
-                ]);
-
             });
+
+            return response()->json([
+                'status' => 'ok',
+                'url'    => url('product/index')
+            ]);
         } else {
             return response()->json([
                 'status'  => 'error',
