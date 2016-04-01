@@ -16,8 +16,8 @@ use Carbon\Carbon;
 class ApiV1Controller extends BaseController
 {
 
-    public function categoryIndex () {
-        if($request->has('after')) {
+    public function categoryIndex (Request $request) {
+        if ($request->has('after')) {
             $categories = Category::where('updated_at', '>', $request['after'])->get();
         } else {
             $categories = Category::all();
@@ -46,7 +46,7 @@ class ApiV1Controller extends BaseController
     }
 
     public function products (Request $request) {
-        if($request->has('after')) {
+        if ($request->has('after')) {
             $products = Product::where('updated_at', '>', $request['after'])
                 ->paginate();
         } else {
