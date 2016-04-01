@@ -16,7 +16,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="{{ url('adminlte/plugins/datepicker/datepicker3.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ url('adminlte/dist/css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -253,7 +252,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li><a href="{{ url('user/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
               </ul>
             </li>
-            <li class="active treeview"><a href="#"><i class="fa fa-link"></i> <span>Tips</span></a>
+            <li class="treeview"><a href="#"><i class="fa fa-link"></i> <span>Tips</span></a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('tip/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('tip/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
@@ -266,7 +265,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li><a href="{{ url('category/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
               </ul>
             </li>
-            <li class="treeview"><a href="#"><i class="fa fa-link"></i> <span>Productos</span></a>
+            <li class="active treeview"><a href="#"><i class="fa fa-link"></i> <span>Productos</span></a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('product/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('product/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
@@ -283,7 +282,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Editar tip <strong>{{ \Illuminate\Support\Str::words($tip->content, 8) }}</strong>
+            Cargar productos
             {{-- <small>Optional description</small> --}}
           </h1>
           {{-- <ol class="breadcrumb">
@@ -296,33 +295,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <section class="content">
 
           <!-- Your Page Content Here -->
-          <form class="form-horizontal" role="form" action="{{ url('tip/update', $tip->id) }}" method="post">
-            <input type="hidden" name="_method" value="put" />
+          <form class="form-horizontal" role="form" action="{{ url('product/doLoad') }}" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
             <div class="box-body">
               <div class="form-group">
-                <label for="name" class="col-sm-2 control-label">Contenido</label>
+                <label for="foto" class="col-sm-2 control-label">Archivo</label>
                 <div class="col-sm-10">
-                  <textarea class="form-control" rows="2" name="content" placeholder="Contenido (máx. 255 caracteres)" maxlength="255" style="resize: none;">{{ $tip->content }}</textarea>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="desde" class="col-sm-2 control-label">Desde</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="Desde" name="start" id="start" value="{{ $tip->start }}">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="hasta" class="col-sm-2 control-label">Hasta</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="Hasta" name="end" id="end" value="{{ $tip->end }}">
+                  <input type="file" class="form-control" name="productList" placeholder="Archivo">
                 </div>
               </div>
             </div><!-- /.box-body -->
 
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary pull-right">Guardar</button>
+              <button type="submit" class="btn btn-primary pull-right">Subir</button>
             </div>
           </form>
         </section><!-- /.content -->
@@ -408,8 +393,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ url('adminlte/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{{ url('adminlte/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url('adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ url('adminlte/plugins/datepicker/locales/bootstrap-datepicker.es.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ url('adminlte/dist/js/app.min.js') }}"></script>
 
@@ -421,16 +404,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ url('js/jquery.form.min.js') }}"></script>
     <script src="{{ url('js/equilibrium.js') }}"></script>
 
-    <script>
-      $(function(){
-        $('#start, #end').datepicker({
-          language: 'es',
-          orientation: 'top left',
-          autoclose: true,
-          format: 'dd/mm/yyyy',
-          todayHighlight: true
-        });
-      });
-    </script>
   </body>
 </html>

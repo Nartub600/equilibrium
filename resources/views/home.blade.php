@@ -270,6 +270,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <ul class="treeview-menu">
                 <li><a href="{{ url('product/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('product/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
+                <li><a href="{{ url('product/load') }}"><i class="fa fa-circle-o"></i>Cargar</a></li>
               </ul>
             </li>
             {{-- <li class="treeview">

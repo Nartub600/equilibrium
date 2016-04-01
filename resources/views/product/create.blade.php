@@ -269,6 +269,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <ul class="treeview-menu">
                 <li><a href="{{ url('product/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('product/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
+                <li><a href="{{ url('product/load') }}"><i class="fa fa-circle-o"></i>Cargar</a></li>
               </ul>
             </li>
             {{-- <li class="treeview">
@@ -303,6 +304,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Your Page Content Here -->
           <form class="form-horizontal" role="form" action="{{ url('product/store') }}" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="last" value="shame">
             <div class="box-body">
               <div class="form-group" id="input_categories">
                 <label for="parent" class="col-sm-2 control-label">Categoría<p class="help-block">Ctrl o ⌘ para selección múltiple</p></label>

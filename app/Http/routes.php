@@ -91,6 +91,8 @@ $app->group([
     $app->delete('destroy/{id}', ['uses' => 'ProductController@destroy']);
     $app->post('duplicate/{id}', ['uses' => 'ProductController@duplicate']);
     $app->get('toggleView', ['uses' => 'ProductController@toggleView']);
+    $app->get('load', ['uses' => 'ProductController@load']);
+    $app->post('doLoad', ['uses' => 'ProductController@doLoad']);
 
 });
 

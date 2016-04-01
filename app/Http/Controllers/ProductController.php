@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
 use App\Equivalence;
+use Excel;
 
 class ProductController extends Controller
 {
@@ -386,6 +387,142 @@ class ProductController extends Controller
         }
 
         return redirect('product/create');
+    }
+
+    public function load() {
+        return view('product.load');
+    }
+
+    public function doLoad(Request $request) {
+        $input = $request->all();
+
+        $rules = [
+            'productList' => 'required'
+        ];
+
+        $messages = [
+            'productList.required' => 'Es necesario seleccionar un archivo'
+        ];
+
+        $validator = Validator::make($input, $rules, $messages);
+
+        if ($validator->passes()) {
+            Excel::load($request->file('productList'), function($reader) {
+                $rows = $reader->get();
+
+                foreach ($rows as $row) {
+                    $product = new Product();
+
+                    $product->nombre = !empty($row->nombre) ? $row->nombre : "";
+                    $product->barcode = !empty($row->barcode) ? $row->barcode : "";
+                    $product->marca = !empty($row->marca) ? $row->marca : "";
+                    $product->fuente = !empty($row->fuente) ? $row->fuente : "";
+                    $product->denominacion_legal = !empty($row->denominacion_legal) ? $row->denominacion_legal : "";
+                    $product->alimento = !empty($row->alimento) ? $row->alimento : "";
+                    $product->unidad = !empty($row->unidad) ? $row->unidad : "";
+                    $product->cantidad = !empty($row->cantidad) ? $row->cantidad : "";
+                    $product->calorias = !empty($row->calorias) ? $row->calorias : "";
+                    $product->calorias_porcentaje = !empty($row->calorias_porcentaje) ? $row->calorias_porcentaje : "";
+                    $product->hidratos = !empty($row->hidratos) ? $row->hidratos : "";
+                    $product->azucares = !empty($row->azucares) ? $row->azucares : "";
+                    $product->sacarosa = !empty($row->sacarosa) ? $row->sacarosa : "";
+                    $product->polidextro = !empty($row->polidextro) ? $row->polidextro : "";
+                    $product->almidon = !empty($row->almidon) ? $row->almidon : "";
+                    $product->polialcoholes = !empty($row->polialcoholes) ? $row->polialcoholes : "";
+                    $product->fibra = !empty($row->fibra) ? $row->fibra : "";
+                    $product->proteinas = !empty($row->proteinas) ? $row->proteinas : "";
+                    $product->grasas = !empty($row->grasas) ? $row->grasas : "";
+                    $product->ags = !empty($row->ags) ? $row->ags : "";
+                    $product->agmi = !empty($row->agmi) ? $row->agmi : "";
+                    $product->agpi = !empty($row->agpi) ? $row->agpi : "";
+                    $product->trans = !empty($row->trans) ? $row->trans : "";
+                    $product->colesterol = !empty($row->colesterol) ? $row->colesterol : "";
+                    $product->epa = !empty($row->epa) ? $row->epa : "";
+                    $product->dha = !empty($row->dha) ? $row->dha : "";
+                    $product->omega_3 = !empty($row->omega_3) ? $row->omega_3 : "";
+                    $product->omega_6 = !empty($row->omega_6) ? $row->omega_6 : "";
+                    $product->omega_9 = !empty($row->omega_9) ? $row->omega_9 : "";
+                    $product->sodio = !empty($row->sodio) ? $row->sodio : "";
+                    $product->calcio = !empty($row->calcio) ? $row->calcio : "";
+                    $product->hierro = !empty($row->hierro) ? $row->hierro : "";
+                    $product->fosforo = !empty($row->fosforo) ? $row->fosforo : "";
+                    $product->potasio = !empty($row->potasio) ? $row->potasio : "";
+                    $product->magnesio = !empty($row->magnesio) ? $row->magnesio : "";
+                    $product->selenio = !empty($row->selenio) ? $row->selenio : "";
+                    $product->zinc = !empty($row->zinc) ? $row->zinc : "";
+                    $product->vit_a_mc = !empty($row->vit_a_mc) ? $row->vit_a_mc : "";
+                    $product->vit_a_ui = !empty($row->vit_a_ui) ? $row->vit_a_ui : "";
+                    $product->vit_e_mc = !empty($row->vit_e_mc) ? $row->vit_e_mc : "";
+                    $product->vit_e_ui = !empty($row->vit_e_ui) ? $row->vit_e_ui : "";
+                    $product->vit_d = !empty($row->vit_d) ? $row->vit_d : "";
+                    $product->b1 = !empty($row->b1) ? $row->b1 : "";
+                    $product->b2 = !empty($row->b2) ? $row->b2 : "";
+                    $product->niacina = !empty($row->niacina) ? $row->niacina : "";
+                    $product->b6 = !empty($row->b6) ? $row->b6 : "";
+                    $product->b9 = !empty($row->b9) ? $row->b9 : "";
+                    $product->b12 = !empty($row->b12) ? $row->b12 : "";
+                    $product->vit_c = !empty($row->vit_c) ? $row->vit_c : "";
+                    $product->indice_glucemico = !empty($row->indice_glucemico) ? $row->indice_glucemico : "";
+                    $product->alcohol = !empty($row->alcohol) ? $row->alcohol : "";
+                    $product->calorias_alcohol = !empty($row->calorias_alcohol) ? $row->calorias_alcohol : "";
+                    $product->descripcion = !empty($row->descripcion) ? $row->descripcion : "";
+                    $product->ingredientes = !empty($row->ingredientes) ? $row->ingredientes : "";
+                    $product->nombre_cientifico = !empty($row->nombre_cientifico) ? $row->nombre_cientifico : "";
+                    $product->tags = !empty($row->tags) ? $row->tags : "";
+                    $product->otros_nombres = !empty($row->otros_nombres) ? $row->otros_nombres : "";
+                    $product->rnpa = !empty($row->rnpa) ? $row->rnpa : "";
+                    $product->rne = !empty($row->rne) ? $row->rne : "";
+                    $product->user_id = session('user')->id;
+
+                    $product->save();
+
+                    $equivalences = !empty($row->equivalencias) ? array_map('trim', explode(',', $row->equivalencias)) : [];
+
+                    foreach ($equivalences as $equivalence) {
+                        $equivalence = explode(':', $equivalence);
+                            Equivalence::create([
+                                'product_id' => $product->id,
+                                'name'       => $equivalence[0],
+                                'amount'     => $equivalence[1]
+                            ]);
+                    }
+
+                    $categories = array_map('trim', explode(',', $row->categorias));
+
+                    $product->categories()->attach($categories);
+
+                    if (!empty($row->foto)) {
+                        $foto = file_get_contents($row->foto);
+                        $filename = basename($row->foto);
+                        $ext = explode('.', $filename)[1];
+
+                        $filename = $product->id . '.' . $ext;
+
+                        \Storage::put(
+                            'products/' . $filename,
+                            $foto
+                        );
+
+                        $product->foto = $filename;
+
+                        $product->save();
+                    } else {
+                        $product->foto = "";
+                    }
+                }
+
+                return response()->json([
+                    'status' => 'ok',
+                    'url'    => url('product/index')
+                ]);
+
+            });
+        } else {
+            return response()->json([
+                'status'  => 'error',
+                'message' => $validator->messages()->all()
+            ]);
+        }
     }
 
 }

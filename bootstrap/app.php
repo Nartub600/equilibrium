@@ -21,6 +21,10 @@ $app = new Laravel\Lumen\Application(
 
 $app->withFacades();
 
+class_alias('Maatwebsite\Excel\Facades\Excel', 'Excel');
+class_alias('Illuminate\Support\Facades\Response', 'Response');
+class_alias('Illuminate\Support\Facades\Config', 'Config');
+
 $app->withEloquent();
 
 /*
@@ -80,6 +84,7 @@ $app->routeMiddleware([
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+$app->register(Maatwebsite\Excel\ExcelServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
