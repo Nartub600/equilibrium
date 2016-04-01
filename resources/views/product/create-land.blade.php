@@ -269,6 +269,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <ul class="treeview-menu">
                 <li><a href="{{ url('product/index') }}"><i class="fa fa-circle-o"></i>Índice</a></li>
                 <li><a href="{{ url('product/create') }}"><i class="fa fa-circle-o"></i>Agregar</a></li>
+                <li><a href="{{ url('product/load') }}"><i class="fa fa-circle-o"></i>Cargar</a></li>
               </ul>
             </li>
             {{-- <li class="treeview">
@@ -539,7 +540,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           </form>
 
-          <p><a href="#" onclick="$('form.producto').last().after($('form.producto').first().clone()); scrollHelper(); return false;">Otro producto</a></p>
+          <p><a href="#" onclick="$('form.producto').last().after($('form.producto').first().clone()); return false;">Otro producto</a></p>
 
           <div class="box-footer">
             <button type="submit" class="btn btn-primary pull-right" id="btn_guardar">Guardar</button>
@@ -672,8 +673,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       });
 
       function scrollHelper() {
-        $('.box-body').on('scroll', function(e){
-          $('.box-body').scrollLeft($(this).scrollLeft());
+        $('.box-body').last().on('scroll', function(e){
+          $('.box-body').scrollLeft($(e.target).scrollLeft());
         });
       }
     </script>
